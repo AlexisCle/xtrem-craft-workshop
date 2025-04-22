@@ -8,20 +8,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MoneyCalculatorTest {
     @Test
+    @DisplayName("Should add in dollars")
     void shouldAddInUsd() {
-        assertThat(MoneyCalculator.add(5, USD, 10))
-                .isNotNull();
+        double res = MoneyCalculator.add(5, USD, 10);
+        assertThat(res).isNotNull();
     }
 
     @Test
+    @DisplayName("Should multiply in euros")
     void shouldMultiplyInEuros() {
-        assertThat(MoneyCalculator.times(10, EUR, 2))
-                .isEqualTo(20);
+        double res = MoneyCalculator.times(10, EUR, 2);
+        assertThat(res).isEqualTo(20);
     }
 
     @Test
+    @DisplayName("Should divide in korean wons")
     void shouldDivideInKoreanWons() {
-        assertThat(MoneyCalculator.divide(4002, KRW, 4))
-                .isEqualTo(1000.5);
+        double res = MoneyCalculator.divide(4002, KRW, 4);
+        assertThat(res).isEqualTo(1000.5);
     }
 }
