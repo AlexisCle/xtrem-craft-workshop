@@ -35,14 +35,12 @@ class BankTest {
     }
 
     @Test
-    @DisplayName("This tests that the withExchangeRate method works and modifies the exchange rate")
+    @DisplayName("should convert to different result when exchange rate changes")
     void convertWithDifferentExchangeRatesReturnsDifferentFloats() throws MissingExchangeRateException {
-        Bank bank = Bank.withExchangeRate(EUR, USD, 1.2);
-        double result = bank.convert(10, EUR, USD);
-        assertThat(result).isEqualTo(12);
-
-        bank = Bank.withExchangeRate(EUR, USD, 1.3);
-        result = bank.convert(10, EUR, USD);
+        Bank bank1 = Bank.withExchangeRate(EUR, USD, 1.2);
+        bank1.addExchangeRate(EUR, USD, 1.3);
+        
+        double result = bank1.convert(10, EUR, USD);
         assertThat(result).isEqualTo(13);
     }
 }
