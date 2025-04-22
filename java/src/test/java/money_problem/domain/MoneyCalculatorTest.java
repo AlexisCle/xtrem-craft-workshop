@@ -11,7 +11,7 @@ class MoneyCalculatorTest {
     @DisplayName("Should add in dollars")
     void shouldAddInUsd() {
         double res = MoneyCalculator.add(5, USD, 10);
-        assertThat(res).isNotNull();
+        assertThat(res).isEqualTo(15);
     }
 
     @Test
