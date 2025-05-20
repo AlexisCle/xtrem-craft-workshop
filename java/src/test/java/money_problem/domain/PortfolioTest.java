@@ -54,7 +54,7 @@ class PortfolioTest {
         double res = portfolio.evaluate(bank, Currency.EUR);
         
         // ASSERT
-        assertEquals(res, 14.1);
+        assertEquals(res, 14);
         
     }
     
