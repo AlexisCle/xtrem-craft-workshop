@@ -15,3 +15,4 @@ Itérez sur les différents exemples jusqu'à ce que la User Story soit terminé
 Individuellement, donnez les 3 idées les plus importantes sur le TDD et une question qui reste en suspend.
 
 > Qu'avez-vous appris de l'introduction de nouveaux rôles en mob programming ?
+
