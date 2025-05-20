@@ -1,0 +1,55 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build project
+      run: mvn -B compile
+      working-directory: ./java
+
+    - name: Run tests (blocking step)
+      run: mvn -B test
+      working-directory: ./java
+
+  mutation-tests:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.event_name == 'pull_request'
+    continue-on-error: true
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Run mutation tests
+      run: mvn org.pitest:pitest-maven:mutationCoverage
+      working-directory: ./java
+
+    - name: Upload PIT mutation test report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pitest-report
+        path: ./java/target/pit-reports 
+        retention-days: 7 
