@@ -44,7 +44,7 @@ jobs:
         cache: maven
 
     - name: Run mutation tests
-      run: mvn org.pitest:pitest-maven:mutationCoverage
+      run: mvn -DwithHistory test-compile org.pitest:pitest-maven:mutationCoverage
       working-directory: ./java
 
     - name: Upload PIT mutation test report
