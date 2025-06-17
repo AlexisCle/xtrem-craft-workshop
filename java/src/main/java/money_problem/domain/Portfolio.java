@@ -1,43 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package money_problem.domain;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 
 /**
  *
  * @author depinfo
  */
 class Portfolio {
-    
-    private HashMap<Currency, Double> total;
+
+    private HashSet<Money> total;
 
     Portfolio() {
-        this.total = new HashMap<>();
+        this.total = new HashSet<>();
     }
 
     double evaluate(Bank bank, Currency currency) throws MissingExchangeRateException {
         double total = 0;
-        for(Currency c : this.total.keySet()){
-           total += bank.convert(this.total.get(c), c, currency);
+        for (Money money : this.total) {
+            total += bank.convert(money.getAmount(), money.getCurrency(), currency);
         }
-        return  total;
+        return total;
     }
 
-    void add(double value, Currency currency) {
-        double v = 0;
-        try{
-            v = this.total.get(currency);
-        }
-        catch(NullPointerException e){
-            System.out.println("Devise non connue " + e);
-        }
-        finally{
-           this.total.put(currency, v + value);
-        }
+    void add(Money money) {
+        this.total.add(money);
     }
-    
+
 }

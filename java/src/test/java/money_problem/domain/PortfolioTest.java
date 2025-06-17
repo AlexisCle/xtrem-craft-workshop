@@ -29,10 +29,12 @@ class PortfolioTest {
         // ARRANGE
         Portfolio portfolio = new Portfolio();
         Bank bank = Bank.withExchangeRate(Currency.EUR, Currency.USD, 1.2);
+        Money moneyUSD = new Money(5, Currency.USD);
+        Money moneyEUR = new Money(10, Currency.EUR);
         
         // ACT
-        portfolio.add(5, Currency.USD);
-        portfolio.add(10, Currency.EUR);
+        portfolio.add(moneyUSD);
+        portfolio.add(moneyEUR);
         double res = portfolio.evaluate(bank, Currency.USD);
         
         // ASSERT
@@ -47,10 +49,12 @@ class PortfolioTest {
         // ARRANGE
         Portfolio portfolio = new Portfolio();
         Bank bank = Bank.withExchangeRate(Currency.USD, Currency.EUR, 0.8);
+        Money moneyUSD = new Money(5, Currency.USD);
+        Money moneyEUR = new Money(10, Currency.EUR);
         
         // ACT
-        portfolio.add(5, Currency.USD);
-        portfolio.add(10, Currency.EUR);
+        portfolio.add(moneyUSD);
+        portfolio.add(moneyEUR);
         double res = portfolio.evaluate(bank, Currency.EUR);
         
         // ASSERT
@@ -66,9 +70,10 @@ class PortfolioTest {
         Portfolio portfolio = new Portfolio();
         Bank bank = Bank.withExchangeRate(Currency.EUR, Currency.USD, 1.2);
         double value = 5;
+        Money monaie = new Money(value, Currency.USD);
         
         // ACT
-        portfolio.add(value,Currency.USD);
+        portfolio.add(monaie);
         
         // ASSERT
         assertEquals(portfolio.evaluate(bank, Currency.USD), 5);
