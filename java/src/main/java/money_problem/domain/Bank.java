@@ -34,9 +34,9 @@ public final class Bank {
         if (!canConvert(money.getCurrency(), targetMoney.getCurrency())) {
             throw new MissingExchangeRateException(money.getCurrency(), targetMoney.getCurrency());
         }
-        return money.getAmount() == targetMoney.getAmount()
+        return money.getCurrency() == targetMoney.getCurrency()
                 ? money.getAmount()
-                : money.getAmount() * exchangeRates.get(source + "->" + target);
+                : money.MultiplyBy(exchangeRates.get(money.getCurrency() + "->" + target));
     }
 
 }
