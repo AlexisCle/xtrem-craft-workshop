@@ -18,4 +18,11 @@ public class Money {
         return currency;
     }
 
+    public double MultiplyBy(Double double1) {
+        if (double1 == null) {
+            throw new IllegalArgumentException("Multiplier cannot be null");
+        }
+        return amount * double1;
+    }
+
 }
