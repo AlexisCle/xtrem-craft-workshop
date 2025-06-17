@@ -29,12 +29,14 @@ public final class Bank {
     }
 
     public double convert(double amount, Currency source, Currency target) throws MissingExchangeRateException {
-        if (!canConvert(source, target)) {
-            throw new MissingExchangeRateException(source, target);
+        Money money = new Money(amount, source);
+        Money targetMoney = new Money(0, target);
+        if (!canConvert(money.getCurrency(), targetMoney.getCurrency())) {
+            throw new MissingExchangeRateException(money.getCurrency(), targetMoney.getCurrency());
         }
-        return source == target
-                ? amount
-                : amount * exchangeRates.get(source + "->" + target);
+        return money.getAmount() == targetMoney.getAmount()
+                ? money.getAmount()
+                : money.getAmount() * exchangeRates.get(source + "->" + target);
     }
 
 }
