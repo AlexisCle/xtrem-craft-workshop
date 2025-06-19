@@ -29,7 +29,9 @@ class BankBuilder{
     }
     
     public Bank build(){
-        return Bank.withExchangeRate(this.currency, (Currency) this.exchangeRates.keySet().toArray()[0], 0);
+        return Bank.withExchangeRate(this.currency,
+                                    (Currency) this.exchangeRates.keySet().toArray()[0],
+                                     0, this.currency);
     }
 }
 
