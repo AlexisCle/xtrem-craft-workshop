@@ -19,6 +19,12 @@ public final class Bank {
         return bank;
     }
 
+    public static Bank withExchangeRate(Currency source, Currency target, double rate) {
+        var bank = new Bank(new HashMap<>(), source);
+        bank.addExchangeRate(source, target, rate);
+        return bank;
+    }
+
     public void addExchangeRate(Currency source, Currency target, double rate) {
         exchangeRates.put(source + "->" + target, rate);
     }
