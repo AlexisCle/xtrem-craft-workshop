@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 class BankBuilder{
     
-    private HashMap<Currency, Integer> exchangeRates = new HashMap<Currency, Integer>();
+    private HashMap<Currency, Double> exchangeRates = new HashMap<Currency, Double>();
     private Currency currency;
     
     BankBuilder(Currency currency){
@@ -23,7 +23,7 @@ class BankBuilder{
         return this;
     }
     
-    public BankBuilder withExchangeRate(Integer rate,Currency currency){
+    public BankBuilder withExchangeRate(Double rate,Currency currency){
         this.exchangeRates.put(currency,rate);
         return this;
     }
@@ -35,13 +35,17 @@ class BankBuilder{
 
 class PortfolioTest {
 
+    BankBuilder bankBuilder = BankBuilder.aBank();
+
     @Test
     @DisplayName("This should evaluate an empty portfolio")
     public void emptyPortfolio() throws MissingExchangeRateException{
         
         // ARRANGE
         Portfolio portfolio = new Portfolio();
-        Bank bank = Bank.withExchangeRate(Currency.EUR, Currency.USD, 1.2);
+        Bank bank = bankBuilder.withPivotCurrency(Currency.EUR)
+                .withExchangeRate(1.2, Currency.USD)
+                .build();
         
         // ACT
         double res = portfolio.evaluate(bank, Currency.USD);
@@ -57,7 +61,9 @@ class PortfolioTest {
         
         // ARRANGE
         Portfolio portfolio = new Portfolio();
-        Bank bank = Bank.withExchangeRate(Currency.EUR, Currency.USD, 1.2);
+        Bank bank = bankBuilder.withPivotCurrency(Currency.USD)
+                .withExchangeRate(1.2, Currency.EUR)
+                .build();
         Money moneyUSD = new Money(5, Currency.USD);
         Money moneyEUR = new Money(10, Currency.EUR);
         
@@ -77,7 +83,9 @@ class PortfolioTest {
         
         // ARRANGE
         Portfolio portfolio = new Portfolio();
-        Bank bank = Bank.withExchangeRate(Currency.USD, Currency.EUR, 0.8);
+        Bank bank = bankBuilder.withPivotCurrency(Currency.EUR)
+                .withExchangeRate(0.8, Currency.USD)
+                .build();
         Money moneyUSD = new Money(5, Currency.USD);
         Money moneyEUR = new Money(10, Currency.EUR);
         
@@ -97,7 +105,9 @@ class PortfolioTest {
         
         // ARRANGE
         Portfolio portfolio = new Portfolio();
-        Bank bank = Bank.withExchangeRate(Currency.EUR, Currency.USD, 1.2);
+        Bank bank = bankBuilder.withPivotCurrency(Currency.EUR)
+                .withExchangeRate(1.2, Currency.USD)
+                .build();
         double value = 5;
         Money monaie = new Money(value, Currency.USD);
         
