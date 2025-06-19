@@ -5,13 +5,15 @@ import java.util.Map;
 
 public final class Bank {
     private final Map<String, Double> exchangeRates;
+    private final Currency pivotCurrency;
 
-    private Bank(Map<String, Double> exchangeRates) {
+    private Bank(Map<String, Double> exchangeRates, Currency pivotCurrency) {
         this.exchangeRates = exchangeRates;
+        this.pivotCurrency = pivotCurrency;
     }
 
-    public static Bank withExchangeRate(Currency source, Currency target, double rate) {
-        var bank = new Bank(new HashMap<>());
+    public static Bank withExchangeRate(Currency source, Currency target, double rate, Currency pivotCurrency) {
+        var bank = new Bank(new HashMap<>(), pivotCurrency);
         bank.addExchangeRate(source, target, rate);
 
         return bank;
