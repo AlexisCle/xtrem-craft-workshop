@@ -1,8 +1,37 @@
 package money_problem.domain;
 
+import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+class BankBuilder{
+    
+    private HashMap<Currency, Integer> exchangeRates = new HashMap<Currency, Integer>();
+    private Currency currency;
+    
+    BankBuilder(Currency currency){
+        this.currency = currency;
+    }
+    
+    static BankBuilder aBank(){
+        return new BankBuilder(Currency.EUR);
+    }
+    
+    public BankBuilder withPivotCurrency(Currency currency) {
+        this.currency = currency;
+        return this;
+    }
+    
+    public BankBuilder withExchangeRate(Integer rate,Currency currency){
+        this.exchangeRates.put(currency,rate);
+        return this;
+    }
+    
+    public Bank build(){
+        return Bank.withExchangeRate(this.currency, (Currency) this.exchangeRates.keySet().toArray()[0], 0);
+    }
+}
 
 class PortfolioTest {
 
